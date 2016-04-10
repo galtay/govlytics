@@ -1,21 +1,17 @@
 """Module to handle legislator data (current and historical)
-from the https://www.govtrack.us/ project
+from the GovTrack project (https://www.govtrack.us)
 see https://github.com/unitedstates/congress-legislators
-
-After parsing the YAML files with pyaml, we get a python list with
-one entry per legislator.  Each legislator object has the following
-fields
-
 """
+
 
 import os
 import pyaml
 
 
-BASE_PATH = '/home/galtay/github'
+PATH_HERE = os.path.dirname(os.path.abspath(__file__))
+BASE_PATH = os.path.join(PATH_HERE, '..', 'data')
 CONLEG_PATH = os.path.join(BASE_PATH, 'congress-legislators')
 LEGCURR_FNAME = os.path.join(CONLEG_PATH, 'legislators-current.yaml')
-LEGHIST_FNAME = os.path.join(CONLEG_PATH, 'legislators-historical.yaml')
 
 
 class Legislator(object):
