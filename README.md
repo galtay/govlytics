@@ -26,9 +26,16 @@ Data on members of congress comes from https://github.com/unitedstates/congress-
 
 ## Tools 
 
-### http://neo4j.com/
+### Neo4j (http://neo4j.com)
   
-A script is provided to install Neo4j.  It will appear to stall, but it is waiting
-for you to type in your sudo password. After it finished you can point a web browser
-at `http://localhost:7474`.  The default username and password are both `neo4j`.  On 
-the first login it will ask you to change the password.  Change it to `neo`. 
+A script is provided to install Neo4j.  It has to be run with sudo privelages like so
+
+```bash
+> sudo bash ./install_neo4j.sh
+```
+
+It will prompt you for your sudo password and then install `neo4j` using the 
+commands given at the following link (http://debian.neo4j.org/). After it 
+finished you can point a web browser at `http://localhost:7474`.  The default 
+username and password are both `neo4j`.  On the first login it will ask you to 
+change the password.  Change it to `neo`. 
