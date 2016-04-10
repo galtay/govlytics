@@ -36,6 +36,6 @@ A script is provided to install Neo4j.  It has to be run with sudo privelages li
 
 It will prompt you for your sudo password and then install `neo4j` using the 
 commands given at the following link (http://debian.neo4j.org/). After it 
-finished you can point a web browser at `http://localhost:7474`.  The default 
+finishes you can point a web browser at `http://localhost:7474`.  The default 
 username and password are both `neo4j`.  On the first login it will ask you to 
 change the password.  Change it to `neo`. 
