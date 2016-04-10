@@ -3,7 +3,7 @@ Playing with government data
 
 ## Installation
 
-This package was tested with python 2.7.10. 
+This package was tested on Ubuntu 15.10 64 bit with python 2.7.10. 
 For best results create a virtual environment, 
 
 ```bash
@@ -26,4 +26,9 @@ Data on members of congress comes from https://github.com/unitedstates/congress-
 
 ## Tools 
 
-  - http://neo4j.com/
+### http://neo4j.com/
+  
+A script is provided to install Neo4j.  It will appear to stall, but it is waiting
+for you to type in your sudo password. After it finished you can point a web browser
+at `http://localhost:7474`.  The default username and password are both `neo4j`.  On 
+the first login it will ask you to change the password.  Change it to `neo`. 
