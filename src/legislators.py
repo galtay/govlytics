@@ -19,6 +19,7 @@ class Legislator(object):
 
     def __init__(self, legislator_dict):
         self._legislator_dict = legislator_dict
+        self.id_bioguide = self._legislator_dict['id']['bioguide']
 
     def return_most_recent_term(self):
         return self._legislator_dict['terms'][-1]
