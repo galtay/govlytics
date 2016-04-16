@@ -1,3 +1,9 @@
+"""Map out bills, their sponsors, and co-sponsors.
+
+Try this query
+MATCH (ee:Democrat)-[rel1:SPONSORED]-(bb:Bill)-[rel2:COSPONSORED]-(aa:Republican) RETURN *
+"""
+
 import os
 import json
 from py2neo import Graph, Node, Relationship
