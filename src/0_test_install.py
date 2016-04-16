@@ -6,7 +6,8 @@ import legislators
 if __name__ == '__main__':
     path_here = os.path.dirname(os.path.abspath(__file__))
     test_data_path = os.path.join(path_here, '..', 'test_data')
-    legcurr_fname = os.path.join(test_data_path, 'legislators-current.yaml')
+    legcurr_fname = os.path.join(
+        test_data_path, 'congress-legislators', 'legislators-current.yaml')
 
     print 'attempting to read {} ... '.format(legcurr_fname)
     currlegs = legislators.CurrentLegislators(legcurr_fname)

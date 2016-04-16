@@ -9,9 +9,13 @@ import pyaml
 
 
 PATH_HERE = os.path.dirname(os.path.abspath(__file__))
-BASE_PATH = os.path.join(PATH_HERE, '..', 'data')
-CONLEG_PATH = os.path.join(BASE_PATH, 'congress-legislators')
-LEGCURR_FNAME = os.path.join(CONLEG_PATH, 'legislators-current.yaml')
+DATA_PATH = os.path.join(PATH_HERE, '..', 'data')
+TEST_DATA_PATH = os.path.join(PATH_HERE, '..', 'test_data')
+
+LEGCURR_TEST_FNAME = os.path.join(
+    TEST_DATA_PATH, 'congress-legislators', 'legislators-current.yaml')
+LEGCURR_FNAME = os.path.join(
+    DATA_PATH, 'congress-legislators', 'legislators-current.yaml')
 
 
 class Legislator(object):
@@ -51,7 +55,7 @@ class CurrentLegislators(object):
 
 if __name__ == '__main__':
 
-    curlegs = CurrentLegislators(LEGCURR_FNAME)
+    curlegs = CurrentLegislators(LEGCURR_TEST_FNAME)
     senators = curlegs.return_by_type('sen')
     representatives = curlegs.return_by_type('rep')
 
