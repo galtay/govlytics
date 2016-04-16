@@ -3,7 +3,8 @@
 import os
 import legislators
 
-if __name__ == '__main__':
+
+def main():
     path_here = os.path.dirname(os.path.abspath(__file__))
     test_data_path = os.path.join(path_here, '..', 'test_data')
     legcurr_fname = os.path.join(
@@ -13,8 +14,11 @@ if __name__ == '__main__':
     currlegs = legislators.CurrentLegislators(legcurr_fname)
     print 'success'
     print
-    reps = currlegs.return_by_type('rep')
     print 'current representatives from IL are ...'
-    for rep in reps:
-        if rep.return_most_recent_state() == 'IL':
-            print rep.return_official_name()
+    for rep in currlegs.representatives:
+        if rep.most_recent_state == 'IL':
+            print rep.official_name
+
+
+if __name__ == '__main__':
+    main()
