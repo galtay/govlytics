@@ -12,8 +12,8 @@ For best results create a virtual environment,
 > pip install -r requirements.txt
 ```
 
-To test the installation, run the `0_test_install.py` file in the `src` directory.
-This should print the name of each representative from IL.
+To test the installation, run the `0_test_install.py` file in the `src`
+directory.  This should print the name of each representative from IL.
 
 ```bash
 > python src/0_test_install.py
@@ -41,6 +41,26 @@ commands,
 > cd data
 > git clone https://github.com/unitedstates/congress.git
 > git clone https://github.com/unitedstates/congress-legislators.git
+```
+
+The `.yaml` files included in the `congress-legislators` repo are small
+enough that they are included with the repo.  The data available
+through the `congress` repo is larger and must be fetched by running
+commands.  To fetch data, first install the requirements of the `congress`
+repo.
+
+```bash
+> cd data/congress
+> pip install -r requirements.txt
+```
+
+You should now be able to fetch datasets using the `run` command
+(see https://github.com/unitedstates/congress#collecting-the-data).
+For example we can fetch the bills data for the most recent
+congress using the following commands,
+
+```bash
+> ./run bills
 ```
 
 
