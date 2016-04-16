@@ -21,8 +21,9 @@ This should print the name and state of each senator.
 
 ## Data 
 
-Data on members of congress comes from https://github.com/unitedstates/congress-legislators
-Data on actions of congress comes from https://github.com/unitedstates/congress
+  - Data on members of congress comes from https://github.com/unitedstates/congress-legislators
+
+  - Data on actions of congress comes from https://github.com/unitedstates/congress
 
 
 ## Tools 
