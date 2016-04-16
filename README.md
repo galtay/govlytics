@@ -12,11 +12,11 @@ For best results create a virtual environment,
 > pip install -r requirements.txt
 ```
 
-To test the installation, run the `legislators.py` file in the `src` directory. 
-This should print the name and state of each senator. 
+To test the installation, run the `0_test_install.py` file in the `src` directory. 
+This should print the name of each representative from IL. 
 
 ```bash
-> python src/legislators.py
+> python src/0_test_install.py
 ```
 
 ## Data 
