@@ -43,11 +43,11 @@ commands,
 > git clone https://github.com/unitedstates/congress-legislators.git
 ```
 
-The `.yaml` files included in the `congress-legislators` repo are small
-enough that they are included with the repo.  The data available
-through the `congress` repo is larger and must be fetched by running
-commands.  To fetch data, first install the requirements of the `congress`
-repo.
+The data about congress legislators is small enough that the `.yaml` files
+that store it are included in the `congress-legislators` repo.
+The data available through the `congress` repo is larger and must be
+fetched by running commands.  To fetch data, first install the requirements
+of the `congress` repo.
 
 ```bash
 > cd data/congress
