@@ -5,21 +5,20 @@ see https://github.com/unitedstates/congress-legislators
 
 
 import os
-import pyaml
+import yaml
+import logging
+from . import data_utils
 
 
-PATH_HERE = os.path.dirname(os.path.abspath(__file__))
-DATA_PATH = os.path.join(PATH_HERE, '..', 'data')
-TEST_DATA_PATH = os.path.join(PATH_HERE, '..', 'test_data')
-
-LEGCURR_TEST_FNAME = os.path.join(
-    TEST_DATA_PATH, 'congress-legislators', 'legislators-current.yaml')
-LEGCURR_FNAME = os.path.join(
-    DATA_PATH, 'congress-legislators', 'legislators-current.yaml')
+def read_yaml_file(fpath):
+    """Read YAML into dictionary."""
+    with open(fpath, 'r') as fp:
+        yaml_dict = yaml.load(fp.read(), Loader=yaml.CLoader)
+    return yaml_dict
 
 
 class Legislator(object):
-    """Handles the dictionary for a single legislator."""
+    """Handles data for a single legislator."""
 
     def __init__(self, legislator_dict):
         self._dict = legislator_dict
@@ -35,11 +34,20 @@ class Legislator(object):
 class CurrentLegislators(object):
     """Handles a collection of legislators."""
 
-    def __init__(self, yaml_fname):
+    def __init__(
+            self,
+            yaml_fname=data_utils.CONGRESS_LEGISLATORS_CURRENT_FNAME):
 
-        # create a list of legislators
-        with open(yaml_fname, 'r') as fp:
-            leg_dicts = pyaml.yaml.load(fp)
+        # check if data exists and get it if it doesn't
+        if not os.path.isfile(yaml_fname):
+            logging.info(
+                'current legislators file not found.'.format(yaml_fname))
+            data_utils._get_current_legislators()
+
+        # read legislator file
+        leg_dicts = read_yaml_file(yaml_fname)
+
+        # create a list of legislator objects
         self.legislators = [Legislator(leg_dict) for leg_dict in leg_dicts]
 
         # store senators and representatives
@@ -52,7 +60,7 @@ class CurrentLegislators(object):
             elif term_type == 'rep':
                 self.representatives.append(leg)
             else:
-                print 'unrecognized term type {}'.format(term_type)
+                print('unrecognized term type {}'.format(term_type))
                 sys.exit(1)
 
         # store democrates, republicans, and independents
@@ -68,7 +76,7 @@ class CurrentLegislators(object):
             elif party == 'Independent':
                 self.independents.append(leg)
             else:
-                print 'unrecognized party {}'.format(party)
+                print('unrecognized party {}'.format(party))
                 sys.exit(1)
 
         # index by bioguide ID
@@ -88,19 +96,19 @@ class CurrentLegislators(object):
             yield self.legislators[indx]
             indx += 1
 
-    def get_by_thomas(self, thomas_id):
-        indx = self._indx_thomas[thomas_id]
+    def get_by_thomas(self, id_thomas):
+        indx = self._indx_thomas[id_thomas]
         return self.legislators[indx]
 
-    def get_by_bioduide(self, bioguid_id):
-        indx = self._indx_bioguide[bioguide_id]
+    def get_by_bioduide(self, id_bioguid):
+        indx = self._indx_bioguide[id_bioguide]
         return self.legislators[indx]
 
 if __name__ == '__main__':
 
-    currlegs = CurrentLegislators(LEGCURR_TEST_FNAME)
+    currlegs = CurrentLegislators()
     for legislator in currlegs:
-        print (
+        print(
             legislator.most_recent_state,
             legislator.official_name,
         )

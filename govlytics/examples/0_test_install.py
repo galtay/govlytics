@@ -1,5 +1,6 @@
 """Test install with bundled data."""
 
+
 import os
 import legislators
 
