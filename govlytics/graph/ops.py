@@ -28,3 +28,51 @@ def map_legislators_to_state(graph, legs):
         rel = Relationship(
             nodes[leg.id_bioguide], "FROM", nodes[state])
         graph.create(rel)
+
+
+def map_legislator_bill_sponsorship(graph, legs, bills):
+    """Create graph with bills connected to the legislators who sponsored
+    and co-sponsored them."""
+    delete(graph)
+
+    nodes = {}
+    for legislator in legs:
+        name = legislator.official_name
+        term = legislator.most_recent_term
+        state = term['state']
+        party = term['party']
+        nodes[legislator.id_bioguide] = Node(
+            term['type'], party, **{'name':name, 'type':term['type']})
+        if state not in nodes.keys():
+            nodes[state] = Node("State", **{'name':state})
+        rel = Relationship(
+            nodes[legislator.id_bioguide], "FROM", nodes[state])
+        graph.create(rel)
+
+
+    for bill_id, bill in bills.iteritems():
+
+        node_props = {
+            'bill_id': bill_id,
+            'short_title': bill.return_title(which='short'),
+            'official_title': bill.return_title(which='official'),
+        }
+        nodes[bill_id] = Node('Bill', **node_props)
+
+        if bill.sponsor['type'] == 'person':
+            thomas_id = bill.sponsor['thomas_id']
+            leg = legs.get_by_thomas(thomas_id)
+            bioguide_id = leg.id_bioguide
+            rel = Relationship(nodes[bioguide_id], "SPONSORED", nodes[bill_id])
+            graph.create(rel)
+
+        for cosponsor in bill.cosponsors:
+            thomas_id = cosponsor['thomas_id']
+            try:
+                leg = legs.get_by_thomas(thomas_id)
+            except KeyError:
+                print 'cant find thomas ID {}'.format(thomas_id)
+                continue
+            bioguide_id = leg.id_bioguide
+            rel = Relationship(nodes[bioguide_id], "COSPONSORED", nodes[bill_id])
+            graph.create(rel)

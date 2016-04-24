@@ -5,12 +5,17 @@ import os
 import logging
 import subprocess
 
+# main govlytics directories
+#=====================================================================
 GOVLYTICS_CONF_DIR = os.path.join(os.getenv('HOME'), '.govlytics')
 GOVLYTICS_DATA_DIR = os.getenv(
     'GOVLYTICS_DATA_DIR',
     os.path.join(GOVLYTICS_CONF_DIR, 'data')
 )
 
+
+# github repos for data
+#=====================================================================
 GITHUB_BASE = 'https://github.com/unitedstates'
 
 CONGRESS_REPO = os.path.join(
@@ -19,10 +24,18 @@ CONGRESS_REPO = os.path.join(
 CONGRESS_LEGISLATORS_REPO = os.path.join(
     GITHUB_BASE, 'congress-legislators.git')
 
+
+# directories and file names in repos cloned to govlytics data directory
+#=====================================================================
 CONGRESS_LEGISLATORS_CURRENT_FNAME = os.path.join(
     GOVLYTICS_DATA_DIR,
     'congress-legislators',
     'legislators-current.yaml')
+
+CONGRESS_DATA_PATH = os.path.join(
+    GOVLYTICS_DATA_DIR,
+    'congress',
+    'data')
 
 
 def fetch():

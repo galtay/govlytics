@@ -6,12 +6,8 @@ see https://github.com/unitedstates/congress
 
 import os
 import json
-
-
-PATH_HERE = os.path.dirname(os.path.abspath(__file__))
-BASE_PATH = os.path.join(PATH_HERE, '..', 'data')
-CON_PATH = os.path.join(BASE_PATH, 'congress')
-DATA_PATH = os.path.join(CON_PATH, 'data')
+import logging
+from . import data_utils
 
 
 class Bill(object):
@@ -31,11 +27,15 @@ class Bill(object):
         return self._dict['{}_title'.format(which)]
 
 
-if __name__ == '__main__':
-
+def main():
     bill_fname = os.path.join(
-        DATA_PATH, '114', 'bills', 'hr', 'hr3048', 'data.json')
+        data_utils.CONGRESS_DATA_PATH,
+        '114', 'bills', 'hr', 'hr3048', 'data.json')
     with open(bill_fname, 'r') as fp:
         bill_dict = json.load(fp)
     bill = Bill(bill_dict)
     print 'short title: {}'.format(bill.return_title(which='short'))
+
+
+if __name__ == '__main__':
+    main()
