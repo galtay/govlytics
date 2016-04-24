@@ -12,6 +12,10 @@ GOVLYTICS_DATA_DIR = os.getenv(
 )
 
 GITHUB_BASE = 'https://github.com/unitedstates'
+
+CONGRESS_REPO = os.path.join(
+    GITHUB_BASE, 'congress.git')
+
 CONGRESS_LEGISLATORS_REPO = os.path.join(
     GITHUB_BASE, 'congress-legislators.git')
 
@@ -26,8 +30,8 @@ def fetch():
     _ui_loop()
 
 
-def _get_current_legislators():
-    """Refresh current legislators data."""
+def _get_congress_legislators():
+    """Refresh congress legislators data."""
     data_path = os.path.join(
         GOVLYTICS_DATA_DIR, 'congress-legislators')
 
@@ -44,16 +48,43 @@ def _get_current_legislators():
             'git', 'clone', CONGRESS_LEGISLATORS_REPO, data_path])
 
 
+def _get_congress():
+    """Refresh congress repo."""
+    data_path = os.path.join(
+        GOVLYTICS_DATA_DIR, 'congress')
+
+    logging.info('refreshing congress ...')
+    if os.path.isdir(data_path):
+        logging.info(
+            'data_path: {} exists.  performing git pull'.format(data_path))
+        subprocess.call(['git', '-C', data_path, 'pull'])
+    else:
+        logging.info(
+            'data_path: {} does not exist.  cloning repo {}'.format(
+                data_path, CONGRESS_REPO))
+        subprocess.call([
+            'git', 'clone', CONGRESS_REPO, data_path])
+
+
+def _get_bills():
+    """Refresh congress repo."""
+    congress_path = os.path.join(GOVLYTICS_DATA_DIR, 'congress')
+    logging.info('getting bills ...')
+    subprocess.call([os.path.join(congress_path, 'run'), 'bills'])
+
+
 def _print_menu():
-    print()
-    print(28 * "=" , "Govlytics Data Menu" , 28 * "=")
-    print()
-    print('* govlytics conf dir: {}'.format(GOVLYTICS_CONF_DIR))
-    print('* govlytics data dir: {}'.format(GOVLYTICS_DATA_DIR))
-    print()
-    print("1) refresh congress-legislators")
-    print("x) exit")
-    print(67 * "-")
+    print
+    print 28 * "=" , "Govlytics Data Menu" , 28 * "="
+    print
+    print '* govlytics conf dir: {}'.format(GOVLYTICS_CONF_DIR)
+    print '* govlytics data dir: {}'.format(GOVLYTICS_DATA_DIR)
+    print
+    print "1) clone/update congress-legislators"
+    print "2) clone/update congress"
+    print "3) get bills (current congress, long download)"
+    print "x) exit"
+    print 67 * "-"
 
 def _ui_loop():
 
@@ -61,15 +92,20 @@ def _ui_loop():
 
     while loop:
         _print_menu()
-        choice = input("Enter your choice [1, x]: ")
+        choice = raw_input("Enter your choice [1, 2, 3, x]: ")
 
         if choice=='1':
-            _get_current_legislators()
+            _get_congress_legislators()
+        elif choice=='2':
+            _get_congress()
+        elif choice=='3':
+            _get_bills()
         elif choice=='x':
-            print("Menu x has been selected")
+            print "Menu x has been selected"
             loop=False
         else:
-            input("Wrong option selection. Enter any key to try again ...")
+            raw_input(
+                "Wrong option selection. Enter any key to try again ...")
 
 
 if __name__ == '__main__':

@@ -60,7 +60,7 @@ class CurrentLegislators(object):
             elif term_type == 'rep':
                 self.representatives.append(leg)
             else:
-                print('unrecognized term type {}'.format(term_type))
+                print 'unrecognized term type {}'.format(term_type)
                 sys.exit(1)
 
         # store democrates, republicans, and independents
@@ -76,7 +76,7 @@ class CurrentLegislators(object):
             elif party == 'Independent':
                 self.independents.append(leg)
             else:
-                print('unrecognized party {}'.format(party))
+                print 'unrecognized party {}'.format(party)
                 sys.exit(1)
 
         # index by bioguide ID
@@ -108,7 +108,4 @@ if __name__ == '__main__':
 
     currlegs = CurrentLegislators()
     for legislator in currlegs:
-        print(
-            legislator.most_recent_state,
-            legislator.official_name,
-        )
+        print legislator.most_recent_state, legislator.official_name
