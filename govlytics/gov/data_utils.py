@@ -67,10 +67,13 @@ def _get_congress():
 
 
 def _get_bills():
-    """Refresh congress repo."""
+    """Refresh congress repo.  We want this command executed from
+    the congress repo directory."""
     congress_path = os.path.join(GOVLYTICS_DATA_DIR, 'congress')
     logging.info('getting bills ...')
-    subprocess.call([os.path.join(congress_path, 'run'), 'bills'])
+    subprocess.call(
+        [os.path.join(congress_path, 'run'), 'bills'],
+        cwd=congress_path)
 
 
 def _print_menu():
