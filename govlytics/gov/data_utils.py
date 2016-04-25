@@ -27,15 +27,15 @@ CONGRESS_LEGISLATORS_REPO = os.path.join(
 
 # directories and file names in repos cloned to govlytics data directory
 #=====================================================================
-CONGRESS_LEGISLATORS_CURRENT_FNAME = os.path.join(
-    GOVLYTICS_DATA_DIR,
-    'congress-legislators',
-    'legislators-current.yaml')
+CONGRESS_LEGISLATORS_PATH = os.path.join(
+    GOVLYTICS_DATA_DIR, 'congress-legislators')
 
-CONGRESS_DATA_PATH = os.path.join(
-    GOVLYTICS_DATA_DIR,
-    'congress',
-    'data')
+CONGRESS_LEGISLATORS_CURRENT_FNAME = os.path.join(
+    CONGRESS_LEGISLATORS_PATH, 'legislators-current.yaml')
+
+CONGRESS_PATH = os.path.join(GOVLYTICS_DATA_DIR, 'congress')
+CONGRESS_DATA_PATH = os.path.join(CONGRESS_PATH, 'data')
+
 
 
 def fetch():
@@ -43,11 +43,24 @@ def fetch():
     _ui_loop()
 
 
+def create_govlytics_dirs():
+    """Checks if the base govlytics directories exist and creates them
+    if they dont."""
+    if not os.path.isdir(GOVLYTICS_CONF_DIR):
+        logging.info(
+            'govlytics conf directory {} doesnt exist, creating ... '.
+            format(GOVLYTICS_CONF_DIR))
+        subprocess.call(['mkdir', '-p', GOVLYTICS_CONF_DIR])
+    if not os.path.isdir(GOVLYTICS_DATA_DIR):
+        logging.info(
+            'govlytics data directory {} doesnt exist, creating ... '.
+            format(GOVLYTICS_DATA_DIR))
+        subprocess.call(['mkdir', '-p', GOVLYTICS_DATA_DIR])
+
+
 def _get_congress_legislators():
     """Refresh congress legislators data."""
-    data_path = os.path.join(
-        GOVLYTICS_DATA_DIR, 'congress-legislators')
-
+    data_path = CONGRESS_LEGISLATORS_PATH
     logging.info('refreshing congress-legislators ...')
     if os.path.isdir(data_path):
         logging.info(
@@ -63,8 +76,7 @@ def _get_congress_legislators():
 
 def _get_congress():
     """Refresh congress repo."""
-    data_path = os.path.join(
-        GOVLYTICS_DATA_DIR, 'congress')
+    data_path = CONGRESS_PATH
 
     logging.info('refreshing congress ...')
     if os.path.isdir(data_path):
@@ -82,11 +94,12 @@ def _get_congress():
 def _get_bills():
     """Refresh congress repo.  We want this command executed from
     the congress repo directory."""
-    congress_path = os.path.join(GOVLYTICS_DATA_DIR, 'congress')
+    if not os.path.isdir(CONGRESS_PATH):
+        _get_congress()
     logging.info('getting bills ...')
     subprocess.call(
-        [os.path.join(congress_path, 'run'), 'bills'],
-        cwd=congress_path)
+        [os.path.join(CONGRESS_PATH, 'run'), 'bills'],
+        cwd=CONGRESS_PATH)
 
 
 def _print_menu():
@@ -97,8 +110,7 @@ def _print_menu():
     print '* govlytics data dir: {}'.format(GOVLYTICS_DATA_DIR)
     print
     print "1) clone/update congress-legislators"
-    print "2) clone/update congress"
-    print "3) get bills (current congress, long download)"
+    print "2) get bills (current congress, long download)"
     print "x) exit"
     print 67 * "-"
 
@@ -108,13 +120,11 @@ def _ui_loop():
 
     while loop:
         _print_menu()
-        choice = raw_input("Enter your choice [1, 2, 3, x]: ")
+        choice = raw_input("Enter your choice [1, 2, x]: ")
 
         if choice=='1':
             _get_congress_legislators()
         elif choice=='2':
-            _get_congress()
-        elif choice=='3':
             _get_bills()
         elif choice=='x':
             print "Menu x has been selected"

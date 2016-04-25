@@ -7,3 +7,5 @@ logging.basicConfig(
 
 from . import gov
 from . import graph
+
+gov.data_utils.create_govlytics_dirs()

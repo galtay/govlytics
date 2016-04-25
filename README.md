@@ -1,5 +1,5 @@
 # govlytics
-Playing with government data
+Playing with graph databases and government data.
 
 ## Installation
 
@@ -12,55 +12,32 @@ For best results create a virtual environment,
 > pip install -r requirements.txt
 ```
 
-To test the installation, run the `0_test_install.py` file in the `src`
-directory.  This should print the name of each representative from IL.
+To test the installation, run the `0_test_install.py` file in the `examples`
+directory.  This should fetch a small amount of data and then print out the
+current legislators from Illinois.
 
 ```bash
-> python src/0_test_install.py
+> python examples/0_test_install.py
 ```
 
 ## Data
 
-The `src/0_test_install.py` script used data that was bundled with this
-package in the `test_data` directory.  However, the fine folks at
-www.govtrack.us have made a very large amount of data available to the
-public.  To work with their data I find it convenient to clone their
-repos in a `data` directory inside this package.  The `.gitignore` file
-in this package already includes an entry that will ignore this `data`
-directory.
+The fine folks at www.govtrack.us have made a very large amount of data
+available to the public.  Govlytics has some built in tools to fetch and
+work with their data.  In fact, the `0_test_install.py` script makes use
+of the `govlytics/gov/data_utils.py` module to clone a repo
+(https://github.com/unitedstates/congress-legislators) that handles
+data on congressional legislators and committees.
 
-   - Data on members of congress comes from https://github.com/unitedstates/congress-legislators
-
-   - Data on actions of congress comes from https://github.com/unitedstates/congress
-
-These repos can be cloned into the `data` directory using the following
-commands,
-
-```bash
-> mkdir data
-> cd data
-> git clone https://github.com/unitedstates/congress.git
-> git clone https://github.com/unitedstates/congress-legislators.git
-```
-
-The data about congress legislators is small enough that the `.yaml` files
-that store it are included in the `congress-legislators` repo.
-The data available through the `congress` repo is larger and must be
-fetched by running commands.  To fetch data, first install the requirements
-of the `congress` repo.
+Govlytics will create a configuration directory in your home directory
+called `.govlytics`.  By default, govlytics will store data that it fetches
+in `.govlytics/data`.  You can change this default behaviour by setting
+the environment variable `GOVLYTICS_DATA_DIR`.  In addition, you can
+run a command line UI that will allow you to download data by running the
+`govlytics/gov/data_utils.py` module,
 
 ```bash
-> cd data/congress
-> pip install -r requirements.txt
-```
-
-You should now be able to fetch datasets using the `run` command
-(see https://github.com/unitedstates/congress#collecting-the-data).
-For example we can fetch the bills data for the most recent
-congress using the following commands,
-
-```bash
-> ./run bills
+> python govlytics/gov/data_utils.py
 ```
 
 
