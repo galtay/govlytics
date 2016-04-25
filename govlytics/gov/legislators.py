@@ -42,7 +42,7 @@ class CurrentLegislators(object):
         if not os.path.isfile(yaml_fname):
             logging.info(
                 'current legislators file not found.'.format(yaml_fname))
-            data_utils._get_current_legislators()
+            data_utils._get_congress_legislators()
 
         # read legislator file
         leg_dicts = read_yaml_file(yaml_fname)
