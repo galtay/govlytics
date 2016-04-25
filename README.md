@@ -4,12 +4,27 @@ Playing with graph databases and government data.
 ## Installation
 
 This package was tested on Ubuntu 15.10 64 bit with python 2.7.10.
-For best results create a virtual environment,
+For best results create a virtual environment.
+
+### System Libraries
+
+On Debian based systems you can install the system dependencies like so, 
 
 ```bash
+> sudo apt-get install python-dev python-virtualenv libyaml-dev libxml2-dev libxslt1-dev libz-dev
+```
+
+### Package Install 
+
+Now we can clone the repo, create a virtual environment, and build the package, 
+
+```bash
+> git clone https://github.com/galtay/govlytics.git
+> cd govlytics
 > virtualenv venv
 > source venv/bin/acticate
 > pip install -r requirements.txt
+> export PYTHONPATH='./'
 ```
 
 To test the installation, run the `0_test_install.py` file in the `examples`
