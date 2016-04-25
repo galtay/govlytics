@@ -8,15 +8,15 @@ For best results create a virtual environment.
 
 ### System Libraries
 
-On Debian based systems you can install the system dependencies like so, 
+On Debian based systems you can install the system dependencies like so,
 
 ```bash
 > sudo apt-get install python-dev python-virtualenv libyaml-dev libxml2-dev libxslt1-dev libz-dev
 ```
 
-### Package Install 
+### Package Install
 
-Now we can clone the repo, create a virtual environment, and build the package, 
+Now we can clone the repo, create a virtual environment, and build the package,
 
 ```bash
 > git clone https://github.com/galtay/govlytics.git
@@ -70,4 +70,4 @@ It will prompt you for your sudo password and then install `neo4j` using the
 commands given at the following link (http://debian.neo4j.org/). After it
 finishes you can point a web browser at `http://localhost:7474`.  The default
 username and password are both `neo4j`.  On the first login it will ask you to
-change the password.  Change it to `neo`.
+change the password.  Change it to `neo4jgov`.

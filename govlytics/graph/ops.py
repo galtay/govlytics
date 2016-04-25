@@ -4,7 +4,7 @@
 from py2neo import Graph, Node, Relationship
 
 
-def return_graph(username='neo4j', password='neo'):
+def return_graph(username='neo4j', password='neo4jgov'):
     graph = Graph("http://{}:{}@localhost:7474/db/data".format(
         username, password))
     return graph
