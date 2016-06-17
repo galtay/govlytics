@@ -1,5 +1,10 @@
 # govlytics
-Playing with graph databases and government data.
+
+Playing with graph databases and government data.  Below is an example graph showing bills that were sponsored by democrats and co-sponsored by republicans.  Below that is the inverse (bills sponsored by republicans and co-sponsored by democrats)
+
+ ![Ds](imgs/dem_spons_rep_cospons.jpg)
+
+ ![Rs](imgs/rep_spons_dem_cospons.jpg)
 
 ## Installation
 
