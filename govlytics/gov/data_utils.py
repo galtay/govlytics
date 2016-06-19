@@ -121,7 +121,7 @@ def _ui_loop():
 
     while loop:
         _print_menu()
-        choice = raw_input('Enter your choice [1, 2, x]: ')
+        choice = input('Enter your choice [1, 2, x]: ')
 
         if choice=='1':
             _get_congress_legislators()
@@ -131,7 +131,7 @@ def _ui_loop():
             print('Menu x has been selected')
             loop=False
         else:
-            raw_input(
+            input(
                 'Wrong option selection. Enter any key to try again ...')
 
 
