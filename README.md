@@ -9,8 +9,10 @@ democrats)
 
  ![Rs](imgs/rep_spons_dem_cospons.jpg)
 
+
+
 # Prerequisites
----------------
+
 This package was tested with,
   - Ubuntu 14.04.4 LTS 64 bit
   - Python 3.5.1 from Anaconda 4.0.0
@@ -60,8 +62,9 @@ system (and using the install script included in this repo) the file was located
     # dbms.security.ha_status_auth_enabled=false
 
 
+
 # Install
----------
+
 
 With the prerequisites installed we can clone the govlytics repo, create a conda environment,
 and install a few more simple requirements. Here are some good docs on conda environments
@@ -88,8 +91,10 @@ current legislators from Illinois.
 > python examples/0_test_install.py
 ```
 
+
+
 # Data
-------
+
 
 The fine folks at www.govtrack.us have made a very large amount of data
 available to the public.  Govlytics has some built in tools to fetch and
