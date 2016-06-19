@@ -18,7 +18,10 @@ def map_legislators_to_state(graph, legs):
     delete(graph)
     nodes = {}
     for leg in legs:
-        name = leg.official_name
+        if leg.official_name:
+            name = leg.official_name
+        else:
+            name = '{} {}'.format(leg.first_name, leg.last_name)
         term = leg.most_recent_term
         state = term['state']
         party = term['party']
