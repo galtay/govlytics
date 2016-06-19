@@ -1,5 +1,5 @@
 # Summary
----------
+
 Playing with graph databases and government data.  Below is an example graph
 showing bills that were sponsored by democrats and co-sponsored by republicans.
 Below that is the inverse (bills sponsored by republicans and co-sponsored by
