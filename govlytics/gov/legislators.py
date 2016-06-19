@@ -3,7 +3,7 @@ from the GovTrack project (https://www.govtrack.us)
 see https://github.com/unitedstates/congress-legislators
 """
 
-
+from __future__ import print_function
 import os
 import yaml
 import logging
@@ -21,14 +21,23 @@ class Legislator(object):
     """Handles data for a single legislator."""
 
     def __init__(self, legislator_dict):
+        """Takes a dictionary representation of legislator data and pulls
+        out a few key features as attributes."""
+
         self._dict = legislator_dict
 
-        # set convenience attributes
-        self.id_bioguide = self._dict['id']['bioguide']
-        self.id_thomas = self._dict['id']['thomas']
+        # set convenience attributes for IDs
+        self.id_bioguide = self._dict['id'].get('bioguide')
+        self.id_thomas = self._dict['id'].get('thomas')
+
+        # grab most recent term
         self.most_recent_term = self._dict['terms'][-1]
         self.most_recent_state = self.most_recent_term['state']
-        self.official_name = self._dict['name']['official_full']
+
+        # get name attributes
+        self.official_name = self._dict['name'].get('official_full')
+        self.first_name = self._dict['name'].get('first')
+        self.last_name = self._dict['name'].get('last')
 
 
 class CurrentLegislators(object):
@@ -60,7 +69,7 @@ class CurrentLegislators(object):
             elif term_type == 'rep':
                 self.representatives.append(leg)
             else:
-                print 'unrecognized term type {}'.format(term_type)
+                print('unrecognized term type {}'.format(term_type))
                 sys.exit(1)
 
         # store democrates, republicans, and independents
@@ -76,18 +85,20 @@ class CurrentLegislators(object):
             elif party == 'Independent':
                 self.independents.append(leg)
             else:
-                print 'unrecognized party {}'.format(party)
+                print('unrecognized party {}'.format(party))
                 sys.exit(1)
 
         # index by bioguide ID
         self._indx_bioguide = {}
         for i, leg in enumerate(self):
-            self._indx_bioguide[leg.id_bioguide] = i
+            if leg.id_bioguide is not None:
+                self._indx_bioguide[leg.id_bioguide] = i
 
         # index by thomas ID
         self._indx_thomas = {}
         for i, leg in enumerate(self):
-            self._indx_thomas[leg.id_thomas] = i
+            if leg.id_thomas is not None:
+                self._indx_thomas[leg.id_thomas] = i
 
     def __iter__(self):
         """Allow iteration over list of legislators."""
@@ -100,7 +111,7 @@ class CurrentLegislators(object):
         indx = self._indx_thomas[id_thomas]
         return self.legislators[indx]
 
-    def get_by_bioduide(self, id_bioguid):
+    def get_by_bioguide(self, id_bioguid):
         indx = self._indx_bioguide[id_bioguide]
         return self.legislators[indx]
 
@@ -108,4 +119,4 @@ if __name__ == '__main__':
 
     currlegs = CurrentLegislators()
     for legislator in currlegs:
-        print legislator.most_recent_state, legislator.official_name
+        print(legislator.most_recent_state, legislator.official_name)

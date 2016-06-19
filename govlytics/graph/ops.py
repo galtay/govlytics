@@ -1,6 +1,7 @@
 """Takes data and inputs it into neo4j database
 """
 
+from __future__ import print_function
 from py2neo import Graph, Node, Relationship
 
 
@@ -71,7 +72,7 @@ def map_legislator_bill_sponsorship(graph, legs, bills):
             try:
                 leg = legs.get_by_thomas(thomas_id)
             except KeyError:
-                print 'cant find thomas ID {}'.format(thomas_id)
+                print('cant find thomas ID {}'.format(thomas_id))
                 continue
             bioguide_id = leg.id_bioguide
             rel = Relationship(nodes[bioguide_id], "COSPONSORED", nodes[bill_id])

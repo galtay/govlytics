@@ -1,35 +1,83 @@
-# govlytics
-
-Playing with graph databases and government data.  Below is an example graph showing bills that were sponsored by democrats and co-sponsored by republicans.  Below that is the inverse (bills sponsored by republicans and co-sponsored by democrats)
+# Summary
+---------
+Playing with graph databases and government data.  Below is an example graph
+showing bills that were sponsored by democrats and co-sponsored by republicans.
+Below that is the inverse (bills sponsored by republicans and co-sponsored by
+democrats)
 
  ![Ds](imgs/dem_spons_rep_cospons.jpg)
 
  ![Rs](imgs/rep_spons_dem_cospons.jpg)
 
-## Installation
+# Prerequisites
+---------------
+This package was tested with,
+  - Ubuntu 14.04.4 LTS 64 bit
+  - Python 3.5.1 from Anaconda 4.0.0
 
-This package was tested on Ubuntu 15.10 64 bit with python 2.7.10.
-For best results create a virtual environment.
+Prerequisites are
+  - JDK version 8
+  - Neo4j community edition 3.0.3
 
-### System Libraries
+### JDK version 8
 
-On Debian based systems you can install the system dependencies like so,
+Neo4j 3 requires the Java Development Kit version 8 but this is not packaged with Ubuntu 14.04. However it is available through a PPA.  If it is not installed on
+your system you can install it with the script,
 
 ```bash
-> sudo apt-get install python-dev python-virtualenv libyaml-dev libxml2-dev libxslt1-dev libz-dev
+> sudo ./install_openjdk_8.sh
 ```
 
-### Package Install
+If there is another version of the JDK on your system the script will ask you to
+choose the default using a dialog similar to the one below,
 
-Now we can clone the repo, create a virtual environment, and build the package,
+    There are 2 choices for the alternative java (providing /usr/bin/java).
+
+     Selection    Path                                            Priority   Status
+    ------------------------------------------------------------
+    * 0            /usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java   1071      auto mode
+    1            /usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java   1071      manual mode
+    2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1069      manual mode
+
+To confirm that you are using the correct version of the JDK you can run,
+```bash
+> java -version
+```
+
+### Neo4j
+
+After JDK is installed you can use the included script to install neo4j,
+```bash
+> sudo ./install_neo4j.sh
+```
+
+By default the neo4j server is available at `http://localhost:7474`.  It also has authentication
+enabled by default (meaning you need to sign in with the default username and passoword, both
+of which are `neo4j`).  This can be disabled by editing the `neo4j.conf` file.  On my Ubuntu
+system (and using the install script included in this repo) the file was located at
+`/etc/neo4j/neo4j.conf`.  To turn off authentication simply uncomment the line,
+
+    # dbms.security.ha_status_auth_enabled=false
+
+
+# Install
+---------
+
+With the prerequisites installed we can clone the govlytics repo, create a conda environment,
+and install a few more simple requirements. Here are some good docs on conda environments
+(http://conda.pydata.org/docs/using/envs.html).
 
 ```bash
 > git clone https://github.com/galtay/govlytics.git
 > cd govlytics
-> virtualenv venv
-> source venv/bin/acticate
-> pip install -r requirements.txt
+> conda env create -f environment.yml python=3
+> source activate govlytics
 > export PYTHONPATH='./'
+```
+
+If needed, the conda environment can be destroyed and the steps above can be repeated,
+```bash
+> conda remove --name govlytics --all
 ```
 
 To test the installation, run the `0_test_install.py` file in the `examples`
@@ -40,7 +88,8 @@ current legislators from Illinois.
 > python examples/0_test_install.py
 ```
 
-## Data
+# Data
+------
 
 The fine folks at www.govtrack.us have made a very large amount of data
 available to the public.  Govlytics has some built in tools to fetch and
@@ -59,20 +108,3 @@ run a command line UI that will allow you to download data by running the
 ```bash
 > python govlytics/gov/data_utils.py
 ```
-
-
-## Tools
-
-### Neo4j (http://neo4j.com)
-
-A script is provided to install Neo4j.  It has to be run with sudo privelages like so
-
-```bash
-> sudo bash ./install_neo4j.sh
-```
-
-It will prompt you for your sudo password and then install `neo4j` using the
-commands given at the following link (http://debian.neo4j.org/). After it
-finishes you can point a web browser at `http://localhost:7474`.  The default
-username and password are both `neo4j`.  On the first login it will ask you to
-change the password.  Change it to `neo4jgov`.

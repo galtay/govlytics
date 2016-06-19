@@ -3,7 +3,7 @@ from the GovTrack project (https://www.govtrack.us)
 see https://github.com/unitedstates/congress
 """
 
-
+from __future__ import print_function
 import os
 import json
 import logging
@@ -34,7 +34,7 @@ def main():
     with open(bill_fname, 'r') as fp:
         bill_dict = json.load(fp)
     bill = Bill(bill_dict)
-    print 'short title: {}'.format(bill.return_title(which='short'))
+    print('short title: {}'.format(bill.return_title(which='short')))
 
 
 if __name__ == '__main__':

@@ -1,6 +1,7 @@
 """Module to handle data fetching.
 """
 
+from __future__ import print_function
 import os
 import logging
 import subprocess
@@ -103,16 +104,16 @@ def _get_bills():
 
 
 def _print_menu():
-    print
-    print 28 * "=" , "Govlytics Data Menu" , 28 * "="
-    print
-    print '* govlytics conf dir: {}'.format(GOVLYTICS_CONF_DIR)
-    print '* govlytics data dir: {}'.format(GOVLYTICS_DATA_DIR)
-    print
-    print "1) clone/update congress-legislators"
-    print "2) get bills (current congress, long download)"
-    print "x) exit"
-    print 67 * "-"
+    print()
+    print(28 * '=' , 'Govlytics Data Menu' , 28 * '=')
+    print()
+    print('* govlytics conf dir: {}'.format(GOVLYTICS_CONF_DIR))
+    print('* govlytics data dir: {}'.format(GOVLYTICS_DATA_DIR))
+    print()
+    print('1) clone/update congress-legislators')
+    print('2) get bills (current congress, long download)')
+    print('x) exit')
+    print( 67 * '-')
 
 def _ui_loop():
 
@@ -120,18 +121,18 @@ def _ui_loop():
 
     while loop:
         _print_menu()
-        choice = raw_input("Enter your choice [1, 2, x]: ")
+        choice = raw_input('Enter your choice [1, 2, x]: ')
 
         if choice=='1':
             _get_congress_legislators()
         elif choice=='2':
             _get_bills()
         elif choice=='x':
-            print "Menu x has been selected"
+            print('Menu x has been selected')
             loop=False
         else:
             raw_input(
-                "Wrong option selection. Enter any key to try again ...")
+                'Wrong option selection. Enter any key to try again ...')
 
 
 if __name__ == '__main__':
