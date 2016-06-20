@@ -15,7 +15,7 @@ democrats)
 
 This package was tested with,
   - Ubuntu 14.04.4 LTS 64 bit
-  - Python 3.5.1 from Anaconda 4.0.0
+  - Python 2.7.11 from Anaconda 4.0.0
 
 Prerequisites are
   - JDK version 8
@@ -23,7 +23,8 @@ Prerequisites are
 
 ### JDK version 8
 
-Neo4j 3 requires the Java Development Kit version 8 but this is not packaged with Ubuntu 14.04. However it is available through a PPA.  If it is not installed on
+Neo4j 3 requires the Java Development Kit version 8 but this is not packaged with
+Ubuntu 14.04. However it is available through a PPA.  If it is not installed on
 your system you can install it with the script,
 
 ```bash
@@ -53,11 +54,12 @@ After JDK is installed you can use the included script to install neo4j,
 > sudo ./install_neo4j.sh
 ```
 
-By default the neo4j server is available at `http://localhost:7474`.  It also has authentication
-enabled by default (meaning you need to sign in with the default username and passoword, both
-of which are `neo4j`).  This can be disabled by editing the `neo4j.conf` file.  On my Ubuntu
-system (and using the install script included in this repo) the file was located at
-`/etc/neo4j/neo4j.conf`.  To turn off authentication simply uncomment the line,
+By default the neo4j server is available at `http://localhost:7474`.  It also has
+authentication enabled by default (meaning you need to sign in with the default
+username and passoword, both of which are `neo4j`).  This can be disabled by
+editing the `neo4j.conf` file.  On my Ubuntu system (and using the install script
+included in this repo) the file was located at `/etc/neo4j/neo4j.conf`.  To turn
+off authentication simply uncomment the line,
 
     # dbms.security.ha_status_auth_enabled=false
 
@@ -66,19 +68,20 @@ system (and using the install script included in this repo) the file was located
 # Install
 
 
-With the prerequisites installed we can clone the govlytics repo, create a conda environment,
-and install a few more simple requirements. Here are some good docs on conda environments
-(http://conda.pydata.org/docs/using/envs.html).
+With the prerequisites installed we can clone the govlytics repo, create a conda
+environment, and install a few more simple requirements. Here are some good docs on
+conda environments (http://conda.pydata.org/docs/using/envs.html).
 
 ```bash
 > git clone https://github.com/galtay/govlytics.git
 > cd govlytics
-> conda env create -f environment.yml python=3
+> conda env create -f environment.yml python=2
 > source activate govlytics
 > export PYTHONPATH='./'
 ```
 
-If needed, the conda environment can be destroyed and the steps above can be repeated,
+If needed, the conda environment can be destroyed and the steps above can be
+repeated,
 ```bash
 > conda remove --name govlytics --all
 ```

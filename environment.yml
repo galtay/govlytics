@@ -1,30 +1,23 @@
 name: govlytics
 dependencies:
-- backports=1.0=py35_0
-- decorator=4.0.10=py35_0
-- get_terminal_size=1.0.0=py35_0
-- ipython=4.2.0=py35_0
-- ipython_genutils=0.1.0=py35_0
+- cssselect=0.9.1=py27_0
+- libxml2=2.9.2=0
+- libxslt=1.1.28=0
+- lxml=3.6.0=py27_0
 - openssl=1.0.2h=1
-- path.py=8.2.1=py35_0
-- pexpect=4.0.1=py35_0
-- pickleshare=0.7.2=py35_0
-- pip=8.1.2=py35_0
-- ptyprocess=0.5.1=py35_0
-- python=3.5.1=0
-- pyyaml=3.11=py35_4
+- pip=8.1.2=py27_0
+- python=2.7.11=0
+- pytz=2016.4=py27_0
+- pyyaml=3.11=py27_4
 - readline=6.2=2
-- setuptools=23.0.0=py35_0
-- simplegeneric=0.8.1=py35_1
+- setuptools=23.0.0=py27_0
 - sqlite=3.13.0=0
 - tk=8.5.18=0
-- traitlets=4.2.1=py35_0
-- wheel=0.29.0=py35_0
-- xz=5.0.5=1
+- wheel=0.29.0=py27_0
 - yaml=0.1.6=0
 - zlib=1.2.8=3
 - pip:
-  - backports.shutil-get-terminal-size==1.0.0
-  - ipython-genutils==0.1.0
   - py2neo==3
+  - requests==2.10.0
+  - scrapelib==0.10.1
 

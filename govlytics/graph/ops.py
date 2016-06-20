@@ -6,7 +6,9 @@ from py2neo import Graph, Node, Relationship
 
 
 def return_graph(username='neo4j', password='neo4jgov'):
-    graph = Graph("http://{}:{}@localhost:7474/db/data".format(
+#    graph = Graph("http://{}:{}@localhost:7474/db/data".format(
+#        username, password))
+    graph = Graph("http://localhost:7474/db/data".format(
         username, password))
     return graph
 
@@ -41,7 +43,10 @@ def map_legislator_bill_sponsorship(graph, legs, bills):
 
     nodes = {}
     for legislator in legs:
-        name = legislator.official_name
+        if legislator.official_name:
+            name = legislator.official_name
+        else:
+            name = '{} {}'.format(legislator.first_name, legislator.last_name)
         term = legislator.most_recent_term
         state = term['state']
         party = term['party']
