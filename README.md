@@ -3,7 +3,11 @@
 Playing with graph databases and government data.  Below is an example graph
 showing bills that were sponsored by democrats and co-sponsored by republicans.
 Below that is the inverse (bills sponsored by republicans and co-sponsored by
-democrats)
+democrats).  Generation of this graph is covered in example 3.  Through the
+magic of the Cypher query language (i.e. fancy ascii art) the top graph was
+generated with the following query,
+
+    MATCH (ee:Democrat)-[rel1:SPONSORED]-(bb:Bill)-[rel2:COSPONSORED]-(aa:Republican) RETURN *
 
  ![Ds](imgs/dem_spons_rep_cospons.jpg)
 
